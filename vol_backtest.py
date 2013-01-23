@@ -79,12 +79,14 @@ portfolio_dates = []
 
 #PORTFOLIO CONSTRUCTION LOGIC:
 #risk parity: each asset contributes the same weighted volatility to portfolio
-#to scale
-to_scale = 7
+#volatility to scale portfolio to (first step)
+to_scale = 0.07 #7 percent
+total_weght = 1
+volatility_lookback = 60
 
 #for each day
 firstIdx = 0
-for idx in range(momentum_lookback,dayCount-1):
+for idx in range(volatility_lookback,dayCount-1):
 	#check if new month. rebalance monthly
 	if (dates[idx].month != dates[idx+1].month):
 		
@@ -96,6 +98,9 @@ for idx in range(momentum_lookback,dayCount-1):
 				tradable_symbols.append(symbol)
 			except KeyError:
 				print symbol+" not tradable on "+str(dates[firstIdx])
+
+		#calculate volatilities
+		volatility_dict = {}
 		cum_returns_dict = {}
 		for symbol in tradable_symbols:
 			#get their returns (what about -C returns?)
@@ -103,41 +108,54 @@ for idx in range(momentum_lookback,dayCount-1):
 			#in case: convert cur_returns to doubles
 			cur_returns = Series([float(x) for x in old_returns.values],index=old_returns.index)
 
-			#calculate cumprod (after adding 1)
+
+			#calculate volatilities
 			try:
-				cum_returns = (cur_returns+1).cumprod()
+				cur_volatility = cur_returns.std() #std of daily returns
+				cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
 			except:
 				pdb.set_trace()
+			volatility_dict[symbol] = cur_volatility
 			cum_returns_dict[symbol] = cum_returns
 		
-		#sort symbols by momentum
-		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, idx, momentum_lookback)
-
-
-		first_symbol = tradable_symbols.pop(0)
-		sum_returns = cum_returns_dict[first_symbol]
-		popped = 1
-
-		while len(tradable_symbols)>0 and popped<=top: #only grab returns of top 5 (or fewer) by momentum
-			#take arithmetic average of the CUM PROD (every day). this is the portfolio return
-			popped+=1
-			tradable_symbols.pop(0)
-			sum_returns += cum_returns_dict[symbol]
-
-		average_returns = sum_returns/popped
-		#these are cum prod returns (e.g. levels). transform back into returns
-		average_returns = cumprod_to_returns(average_returns)
+		
 		
 
+		volatility_df = DataFrame(volatility_dict,index=['volatility'])
+		
 
-		#add these daily returns to a df
+		#go through all symbols, equal weight by volatility, scale volatility up to 100% exposure
+		target_vol = float(to_scale) / len(tradable_symbols) #the target vol for each position (for now). because we want risk parity, it is the same
+		scale_factors = target_vol/volatility_df
+		scale_factors_sum = scale_factors.sum(axis=1)['volatility']
+		scale_factor_multiplier = 1/scale_factors_sum
+		new_scale_factors = scale_factors * scale_factor_multiplier
+
+		
+		
+		#then calculate weighted average returns based on volatility scales
+		first_symbol = tradable_symbols.pop()
+		average_returns = cum_returns_dict[first_symbol]*new_scale_factors[first_symbol]['volatility']
+		
+		for symbol in tradable_symbols:
+			#take WEIGHTED average (weighted by volatility weights, determined before) of the CUM PROD (every day). this is the portfolio return
+			average_returns += cum_returns_dict[symbol]*new_scale_factors[symbol]['volatility']
+			
+
+
+		#these are cum prod returns (e.g. levels). transform back into returns
+		average_returns = cumprod_to_returns(average_returns)
+
+		
+		
 
 		#set the beginning of next month
 		firstIdx = idx+1
-		
+
+		#add these daily returns to a series
 		portfolio_rets.extend(average_returns.values)
 		portfolio_dates.extend(average_returns.index)
 
 #convert to a df
 portfolio_rets = Series(portfolio_rets,index=portfolio_dates)
-portfolio_rets = DataFrame({'mom':portfolio_rets})
+portfolio_rets = DataFrame({'vol':portfolio_rets})
