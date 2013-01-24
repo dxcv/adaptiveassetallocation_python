@@ -85,7 +85,7 @@ top = 5 #select top 5
 
 #for each day
 firstIdx = 0
-for idx in range(momentum_lookback,dayCount):
+for idx in range(momentum_lookback+21,dayCount):
 	#check if new month. rebalance monthly
 	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
 		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
@@ -94,6 +94,9 @@ for idx in range(momentum_lookback,dayCount):
 				curIdx-=1
 			firstIdx = curIdx
 		#get list of all tradable etfs at the beginning of the period (e.g. it has a return with double type)
+
+		#pdb.set_trace()
+
 		tradable_symbols = []
 		for symbol in symbols:
 			try:
@@ -116,7 +119,7 @@ for idx in range(momentum_lookback,dayCount):
 			cum_returns_dict[symbol] = cum_returns
 		
 		#sort symbols by momentum
-		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, idx, momentum_lookback)
+		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
 
 
 		first_symbol = tradable_symbols.pop(0)

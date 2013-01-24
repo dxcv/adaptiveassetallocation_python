@@ -29,6 +29,12 @@ def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 	
 	return sorted_symbols
 
+def getVolatility(symbol, allDfs, dates, endIdx, lookback):
+	returns = allDfs[symbol].ix[dates[endIdx-lookback:endIdx]]['RET']
+	returns = Series([float(x) if x != 'C' else 0 for x in returns.values],index=returns.index)
+	stddev = returns.std()
+	return stddev
+
 #get all stock symbols by reading csv names from data folder
 symbols = []
 os.chdir("data/")
@@ -86,7 +92,7 @@ volatility_lookback = 60
 
 #for each day
 firstIdx = 0
-for idx in range(volatility_lookback,dayCount):
+for idx in range(volatility_lookback+21,dayCount):
 	#check if new month. rebalance monthly
 	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
 		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
@@ -115,7 +121,8 @@ for idx in range(volatility_lookback,dayCount):
 
 			#calculate volatilities
 			try:
-				cur_volatility = cur_returns.std() #std of daily returns
+				#cur_volatility = cur_returns.std() #std of daily returns, a scalar
+				cur_volatility = getVolatility(symbol, allDfs, dates, firstIdx,volatility_lookback)
 				cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
 			except:
 				pdb.set_trace()

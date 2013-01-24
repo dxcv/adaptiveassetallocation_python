@@ -7,6 +7,12 @@ def cumprod_to_returns(cumprod):
 	returns = [cumprod.values[0]]
 	returns.extend([cumprod.values[i]/cumprod.values[i-1] for i in range(1,len(cumprod))])
 	return Series(returns,index=cumprod.index)
+	
+def getVolatility(symbol, allDfs, dates, endIdx, lookback):
+	returns = allDfs[symbol].ix[dates[endIdx-lookback:endIdx]]['RET']
+	returns = Series([float(x) if x != 'C' else 0 for x in returns.values],index=returns.index)
+	stddev = returns.std()
+	return stddev
 
 def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 	momentum_dict = {}
@@ -88,7 +94,7 @@ momentum_lookback = 120
 
 #for each day
 firstIdx = 0
-for idx in range(max(momentum_lookback,volatility_lookback),dayCount):
+for idx in range(max(momentum_lookback,volatility_lookback)+21,dayCount):
 	#check if new month. rebalance monthly
 
 	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28:
@@ -111,7 +117,7 @@ for idx in range(max(momentum_lookback,volatility_lookback),dayCount):
 				print symbol+" not tradable on "+str(dates[firstIdx])
 
 		#sort symbols by momentum
-		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, idx, momentum_lookback)
+		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
 		#take only top symbols by momentum
 		tradable_symbols = tradable_symbols[0:top]
 
@@ -129,7 +135,7 @@ for idx in range(max(momentum_lookback,volatility_lookback),dayCount):
 
 			#calculate volatilities
 			try:
-				cur_volatility = cur_returns.std() #std of daily returns
+				cur_volatility = getVolatility(symbol, allDfs, dates, firstIdx,volatility_lookback)
 				cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
 			except:
 				pdb.set_trace()

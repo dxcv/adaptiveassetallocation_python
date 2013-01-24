@@ -4,4 +4,11 @@
  	 - should i step through it, make sure there isn't any lookahead bias? esp. during times of supposed economic volatility...
  	 - what about trying to replicate the returns, by building it off mom_backtest (instead of vol_backtest)
  	 	- honestly, since i will just be copy pasting code, this should be exactly the same...
- 	 - OH SHIT 
+ 	 - OH SHIT... the momentum and volatility metrics are being calculated on the wrong date... should be [momentum data][past month]
+ 	  - fix mom
+ 	  	- added 21 days to first index in range (otherwise you get an index out of bounds)
+ 	  	- also made sure mom metric was being calculated starting the day before the first day of current month
+ 	  - fix vol
+ 	  	 - ok
+ 	  - fix momvol
+ 	  	 - ok
