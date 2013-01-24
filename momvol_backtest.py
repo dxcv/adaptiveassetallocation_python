@@ -25,7 +25,7 @@ def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 		#if symbol=='SPY' and len(symbols)>1:	
 		#	pdb.set_trace()
 
-	sorted_symbols = list(sorted(momentum_dict, key=momentum_dict.__getitem__, reverse=True))
+	sorted_symbols = list(sorted(momentum_dict, key=momentum_dict.__getitem__, reverse=True)) #sort keys by values
 	
 	return sorted_symbols
 
@@ -83,13 +83,24 @@ portfolio_dates = []
 to_scale = 0.07 #7 percent
 total_weght = 1
 volatility_lookback = 60
+top = 5
+momentum_lookback = 120
 
 #for each day
 firstIdx = 0
-for idx in range(volatility_lookback,dayCount-1):
+for idx in range(max(momentum_lookback,volatility_lookback),dayCount):
 	#check if new month. rebalance monthly
-	if (dates[idx].month != dates[idx+1].month):
-		
+
+	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28:
+	#	pdb.set_trace()
+
+	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
+		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
+			curIdx = idx
+			while dates[curIdx].month == dates[curIdx-1].month:
+				curIdx-=1
+			firstIdx = curIdx
+
 		#get list of all tradable etfs at the beginning of the period (e.g. it has a return with double type)
 		tradable_symbols = []
 		for symbol in symbols:
@@ -98,6 +109,13 @@ for idx in range(volatility_lookback,dayCount-1):
 				tradable_symbols.append(symbol)
 			except KeyError:
 				print symbol+" not tradable on "+str(dates[firstIdx])
+
+		#sort symbols by momentum
+		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, idx, momentum_lookback)
+		#take only top symbols by momentum
+		tradable_symbols = tradable_symbols[0:top]
+
+		#pdb.set_trace()
 
 		#calculate volatilities
 		volatility_dict = {}
@@ -133,6 +151,7 @@ for idx in range(volatility_lookback,dayCount-1):
 
 		
 		
+
 		#then calculate weighted average returns based on volatility scales
 		first_symbol = tradable_symbols.pop()
 		average_returns = cum_returns_dict[first_symbol]*new_scale_factors[first_symbol]['volatility']
@@ -153,4 +172,4 @@ for idx in range(volatility_lookback,dayCount-1):
 
 #convert to a df
 portfolio_rets = Series(portfolio_rets,index=portfolio_dates)
-portfolio_rets = DataFrame({'vol':portfolio_rets})
+portfolio_rets = DataFrame({'momvol':portfolio_rets})

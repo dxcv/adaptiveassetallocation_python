@@ -85,10 +85,14 @@ top = 5 #select top 5
 
 #for each day
 firstIdx = 0
-for idx in range(momentum_lookback,dayCount-1):
+for idx in range(momentum_lookback,dayCount):
 	#check if new month. rebalance monthly
-	if (dates[idx].month != dates[idx+1].month):
-		
+	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
+		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
+			curIdx = idx
+			while dates[curIdx].month == dates[curIdx-1].month:
+				curIdx-=1
+			firstIdx = curIdx
 		#get list of all tradable etfs at the beginning of the period (e.g. it has a return with double type)
 		tradable_symbols = []
 		for symbol in symbols:
