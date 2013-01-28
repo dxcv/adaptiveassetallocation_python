@@ -87,7 +87,7 @@ portfolio_dates = []
 #risk parity: each asset contributes the same weighted volatility to portfolio
 #volatility to scale portfolio to (first step)
 to_scale = 0.07 #7 percent
-total_weght = 1
+total_weight = 1
 volatility_lookback = 60
 top = 5
 momentum_lookback = 120

@@ -7,6 +7,12 @@ def cumprod_to_returns(cumprod):
 	returns = [cumprod.values[0]]
 	returns.extend([cumprod.values[i]/cumprod.values[i-1] for i in range(1,len(cumprod))])
 	return Series(returns,index=cumprod.index)
+	
+def getVolatility(symbol, allDfs, dates, endIdx, lookback):
+	returns = allDfs[symbol].ix[dates[endIdx-lookback:endIdx]]['RET']
+	returns = Series([float(x) if x != 'C' else 0 for x in returns.values],index=returns.index)
+	stddev = returns.std()
+	return stddev
 
 def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 	momentum_dict = {}
@@ -25,15 +31,9 @@ def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 		#if symbol=='SPY' and len(symbols)>1:	
 		#	pdb.set_trace()
 
-	sorted_symbols = list(sorted(momentum_dict, key=momentum_dict.__getitem__, reverse=True))
+	sorted_symbols = list(sorted(momentum_dict, key=momentum_dict.__getitem__, reverse=True)) #sort keys by values
 	
 	return sorted_symbols
-
-def getVolatility(symbol, allDfs, dates, endIdx, lookback):
-	returns = allDfs[symbol].ix[dates[endIdx-lookback:endIdx]]['RET']
-	returns = Series([float(x) if x != 'C' else 0 for x in returns.values],index=returns.index)
-	stddev = returns.std()
-	return stddev
 
 #get all stock symbols by reading csv names from data folder
 symbols = []
@@ -84,22 +84,28 @@ portfolio_rets = []
 portfolio_dates = []
 
 #PORTFOLIO CONSTRUCTION LOGIC:
-#risk parity: each asset contributes the same weighted volatility to portfolio
-#volatility to scale portfolio to (first step)
-to_scale = 0.07 #7 percent
-total_weight = 1
-volatility_lookback = 60
+#minimum variance: minimize variance based on past 60 days covariance matrix
+min_weight = 0 #no shorting
+total_weight = 1 #no leverage
+mvp_lookback = 60
+#top = 5
+#momentum_lookback = 120
 
 #for each day
 firstIdx = 0
-for idx in range(volatility_lookback+21,dayCount):
+for idx in range(max(momentum_lookback,volatility_lookback)+21,dayCount):
 	#check if new month. rebalance monthly
+
+	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28:
+	#	pdb.set_trace()
+
 	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
 		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
 			curIdx = idx
 			while dates[curIdx].month == dates[curIdx-1].month:
 				curIdx-=1
 			firstIdx = curIdx
+
 		#get list of all tradable etfs at the beginning of the period (e.g. it has a return with double type)
 		tradable_symbols = []
 		for symbol in symbols:
@@ -108,6 +114,13 @@ for idx in range(volatility_lookback+21,dayCount):
 				tradable_symbols.append(symbol)
 			except KeyError:
 				print symbol+" not tradable on "+str(dates[firstIdx])
+
+		#sort symbols by momentum
+		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
+		#take only top symbols by momentum
+		tradable_symbols = tradable_symbols[0:top]
+
+		#pdb.set_trace()
 
 		#calculate volatilities
 		volatility_dict = {}
@@ -121,7 +134,6 @@ for idx in range(volatility_lookback+21,dayCount):
 
 			#calculate volatilities
 			try:
-				#cur_volatility = cur_returns.std() #std of daily returns, a scalar
 				cur_volatility = getVolatility(symbol, allDfs, dates, firstIdx,volatility_lookback)
 				cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
 			except:
@@ -144,6 +156,7 @@ for idx in range(volatility_lookback+21,dayCount):
 
 		
 		
+
 		#then calculate weighted average returns based on volatility scales
 		first_symbol = tradable_symbols.pop()
 		average_returns = cum_returns_dict[first_symbol]*new_scale_factors[first_symbol]['volatility']
@@ -164,4 +177,4 @@ for idx in range(volatility_lookback+21,dayCount):
 
 #convert to a df
 portfolio_rets = Series(portfolio_rets,index=portfolio_dates)
-portfolio_rets = DataFrame({'vol':portfolio_rets})
+portfolio_rets = DataFrame({'momvol':portfolio_rets})

@@ -12,3 +12,6 @@
  	  	 - ok
  	  - fix momvol
  	  	 - ok
+ - 1/25/2013: finished mom, vol, and momvol algs. what's next?
+ 	- small batching says: make it a webapp right now
+ 		- django? probably a better idea than ror
