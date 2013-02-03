@@ -96,14 +96,14 @@ portfolio_dates = []
 min_weight = 0 #no shorting
 total_weight = 1 #no leverage
 mvp_lookback = 60
-#top = 5
-#momentum_lookback = 120
+top = 5
+momentum_lookback = 120
 
 #for each day
 firstIdx = 0
 weights_dict = {}
-#for idx in range(max(momentum_lookback,volatility_lookback)+21,dayCount):
-for idx in range(mvp_lookback+21,dayCount):
+
+for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 
 	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28: #debug
 	#	pdb.set_trace()
@@ -126,9 +126,9 @@ for idx in range(mvp_lookback+21,dayCount):
 				print symbol+" not tradable on "+str(dates[firstIdx-mvp_lookback])
 
 		#sort symbols by momentum
-		#tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
+		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx-1, momentum_lookback)
 		#take only top symbols by momentum
-		#tradable_symbols = tradable_symbols[0:top]
+		tradable_symbols = tradable_symbols[0:top]
 
 		#pdb.set_trace()
 		
@@ -138,13 +138,14 @@ for idx in range(mvp_lookback+21,dayCount):
 		cum_returns_dict = {}
 		for symbol in tradable_symbols:
 			#get their returns (what about -C returns?)
-			old_returns = allDfs[symbol].ix[dates[firstIdx:idx]]['RET']
+			#old_returns = allDfs[symbol].ix[dates[firstIdx+1:idx]]['RET'] #firstIdx+1 to be conservative, entering the close of first day
+			old_returns = allDfs[symbol].ix[dates[firstIdx:idx-1]]['RET'] #firstIdx+1 to be conservative, entering the close of first day
 			#in case: convert cur_returns to doubles
 			cur_returns = Series([float(x) for x in old_returns.values],index=old_returns.index)
 			cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
 
 			#get historical returns for covariance matrix
-			old_returns2 = allDfs[symbol].ix[dates[firstIdx-mvp_lookback:firstIdx]]['RET']
+			old_returns2 = allDfs[symbol].ix[dates[firstIdx-1-mvp_lookback:firstIdx]]['RET']
 			hist_returns = Series([float(x) if x != 'C' else 0 for x in old_returns2.values],index=old_returns2.index)
 
 			#add to corresponding dictionaries
@@ -205,6 +206,6 @@ for idx in range(mvp_lookback+21,dayCount):
 
 #convert to a df
 portfolio_rets = Series(portfolio_rets,index=portfolio_dates)
-portfolio_rets = DataFrame({'mvp':portfolio_rets})
+portfolio_rets = DataFrame({'momvmp':portfolio_rets})
 weights_df = DataFrame.from_dict(weights_dict,orient='index')
 
