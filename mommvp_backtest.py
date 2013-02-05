@@ -156,6 +156,7 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 		#turn returns into a df
 		hist_returns_df = DataFrame.from_dict(hist_returns_dict)
 		
+		weights = {}
 		if len(tradable_symbols)>1:
 			cov_matrix = hist_returns_df.cov()
 			weight_symbols = cov_matrix.index.values.tolist() #save the symbols
@@ -174,6 +175,8 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 			b = matrix(1.0)
 
 			pre_weights = qp(S, pbar, G, h, A, b)['x']
+
+			
 			
 			for i in range(0,len(weight_symbols)):
 				weights[weight_symbols[i]]=pre_weights[i]
@@ -182,7 +185,15 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 			weights = {tradable_symbols[0]:1}
 		
 
-		weights_dict[firstIdx] = copy.deepcopy(weights)
+		#sum test
+		asum=0
+		for key in weights.keys():
+			asum+=weights[key]
+
+		if asum>1.1:
+			pdb.set_trace()
+
+		weights_dict[dates[firstIdx]] = copy.deepcopy(weights)
 		
 		
 
