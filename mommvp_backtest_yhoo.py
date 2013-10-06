@@ -1,4 +1,5 @@
 from pandas import *
+from pandas.io.data import DataReader
 import glob
 import os
 import pdb
@@ -12,6 +13,7 @@ import pylab
 import copy
 
 def cumprod_to_returns(cumprod):
+
 	returns = [cumprod.values[0]]
 	returns.extend([cumprod.values[i]/cumprod.values[i-1] for i in range(1,len(cumprod))])
 	return Series(returns,index=cumprod.index)
@@ -21,6 +23,7 @@ def getVolatility(symbol, allDfs, dates, endIdx, lookback):
 	returns = Series([float(x) if x != 'C' else 0 for x in returns.values],index=returns.index)
 	stddev = returns.std()
 	return stddev
+
 
 def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 	momentum_dict = {}
@@ -41,34 +44,44 @@ def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 
 	sorted_symbols = list(sorted(momentum_dict, key=momentum_dict.__getitem__, reverse=True)) #sort keys by values
 	
-	return sorted_symbols
+	return sorted_symbols,momentum_dict
 
 #get all stock symbols by reading csv names from data folder
-symbols = []
-os.chdir("data/")
-for afile in glob.glob("*.csv"):
-	symbols.append(afile[:-4]) #slice out csv extension
-os.chdir("../") #reset dir
+#symbols = []
+#symbols = ['IVV','EEM','EFA','LQD','IYR','SHY','IEF']
+#symbols = ['VTI','EWJ','RWX','IEF','TLT','IAU','DBC','VGK','VNQ','VWO'] #default list
+symbols = ['VTI','RWX','IEF','TLT','IAU','DBC','VNQ','VWO','TIP','LQD','SHY','EFA'] #improved list
 
 allDfs = {}
-#store all in memory (a dict of dfs). read from binary, if doesn't exist read from csv (and save binary)
+#store all in memory (a dict of dfs). get data from yahoo finance
 for symbol in symbols:
-	try:
-		print "reading "+symbol+" data from binary file..."
-		df = DataFrame.load("data/"+symbol+".df")
-	except IOError:
-		print "reading "+symbol+" data from CSV..."
-		df = DataFrame.from_csv("data/"+symbol+".csv")
-		df.save("data/"+symbol+".df")
+	df= DataReader(symbol,'yahoo',datetime(2006,1,1))
+	#pdb.set_trace()
+	#shifted_dates = [(date-DateOffset(days=15)) for date in df.index] #shift dates to test path dependency
+	#df.index = shifted_dates
 	allDfs[symbol] = df
 
+
+#pdb.set_trace()
+
+#calculate rets
+for symbol in symbols:
+	price = allDfs[symbol]['Adj Close']
+	prev_price = price.shift(1)
+	ret = price/prev_price-1
+	ret = Series(ret,index=price.index)
+	df=DataFrame({'RET':ret})
+	allDfs[symbol]=df
+	#pdb.set_trace()
+
+
 #get a ts of number of etfs in existence
-generateTimeSeries = 0
+generateTimeSeries = 1
 if generateTimeSeries==1:
 	print "generating time series of ETF count..."
 
 	countTS = {}
-	for date in allDfs['SPY'].index:
+	for date in allDfs[symbols[0]].index:
 		count=0
 		for symbol in allDfs.keys():
 			try:
@@ -82,9 +95,9 @@ if generateTimeSeries==1:
 	countSeries = Series(countTS)
 
 #set start-end date
-startDate = allDfs['SPY'].index[0]
-endDate = allDfs['SPY'].index[-1]
-dates = allDfs['SPY'].index
+startDate = allDfs[symbols[0]].index[0]
+endDate = allDfs[symbols[0]].index[-1]
+dates = allDfs[symbols[0]].index
 dayCount = len(dates)
 
 
@@ -97,19 +110,19 @@ min_weight = 0 #no shorting
 total_weight = 1 #no leverage
 mvp_lookback = 60
 top = 5
-momentum_lookback = 120
+momentum_lookback = 120 #default 120
 
 #for each day
 firstIdx = 0
 weights_dict = {}
 
-for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
+for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount-1):
 
 	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28: #debug
 	#	pdb.set_trace()
 
 	#check if new month. rebalance monthly
-	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
+	if (dates[idx].month != dates[idx+1].month):
 		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
 			curIdx = idx
 			while dates[curIdx].month == dates[curIdx-1].month:
@@ -126,9 +139,22 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 				print symbol+" not tradable on "+str(dates[firstIdx-mvp_lookback])
 
 		#sort symbols by momentum
-		tradable_symbols = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
+		momentum_obj = sort_by_momentum(tradable_symbols, allDfs, dates, firstIdx, momentum_lookback)
+		tradable_symbols = momentum_obj[0]
+		momentum_dict = momentum_obj[1]
 		#take only top symbols by momentum
 		tradable_symbols = tradable_symbols[0:top]
+
+		#---ABSOLUTE RETURN FILTERING: don't trade any etfs that have negative momentum
+		tradable_symbols_2 = []
+		#pdb.set_trace()
+		for symbol in tradable_symbols:
+			if momentum_dict[symbol]>0:
+				tradable_symbols_2.append(symbol)
+		if len(tradable_symbols_2)==0:
+			pdb.set_trace()
+
+		#tradable_symbols = tradable_symbols_2
 
 		#pdb.set_trace()
 		
@@ -139,7 +165,7 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 		for symbol in tradable_symbols:
 			#get their returns (what about -C returns?)
 			old_returns = allDfs[symbol].ix[dates[firstIdx+1:idx]]['RET'] #firstIdx+1 to be conservative, entering the close of first day
-			#old_returns = allDfs[symbol].ix[dates[firstIdx:idx-1]]['RET'] #firstIdx+1 to be conservative, entering the close of first day
+			#old_returns = allDfs[symbol].ix[dates[firstIdx:idx-1]]['RET'] 
 			#in case: convert cur_returns to doubles
 			cur_returns = Series([float(x) for x in old_returns.values],index=old_returns.index)
 			cum_returns = (cur_returns+1).cumprod() #get cumulative returns for the past month
@@ -147,6 +173,9 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 			#get historical returns for covariance matrix
 			old_returns2 = allDfs[symbol].ix[dates[firstIdx-mvp_lookback:firstIdx]]['RET']
 			hist_returns = Series([float(x) if x != 'C' else 0 for x in old_returns2.values],index=old_returns2.index)
+
+
+			
 
 			#add to corresponding dictionaries
 			hist_returns_dict[symbol] = hist_returns
@@ -193,9 +222,12 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 		if asum>1.1:
 			pdb.set_trace()
 
+		
+
+		
+		
+		#save weights
 		weights_dict[dates[firstIdx]] = copy.deepcopy(weights)
-		
-		
 
 		#then calculate weighted average returns based on volatility scales
 		first_symbol = tradable_symbols.pop()
@@ -206,7 +238,10 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 			average_returns += cum_returns_dict[symbol]*weights[symbol]
 			
 		#these are cum prod returns (e.g. levels). transform back into returns
+		if len(average_returns)==0:
+			pdb.set_trace()
 		average_returns = cumprod_to_returns(average_returns)
+
 
 		#set the beginning of next month
 		firstIdx = idx+1
@@ -225,3 +260,5 @@ performance_stats = {}
 performance_stats['cagr'] = pow(pow(cumrets[-1],(1.0/float(len(cumrets)))),252)
 performance_stats['sharpe'] = (portfolio_rets['mommvp']-1).mean()/(portfolio_rets['mommvp']-1).std()*252.0/sqrt(252)
 performance_stats['maxdd']=1-min(cumrets/cumrets.cummax())
+
+performance_stats

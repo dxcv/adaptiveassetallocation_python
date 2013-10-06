@@ -1,4 +1,5 @@
 from pandas import *
+from pandas.io.data import DataReader
 import glob
 import os
 import pdb
@@ -12,6 +13,7 @@ import pylab
 import copy
 
 def cumprod_to_returns(cumprod):
+
 	returns = [cumprod.values[0]]
 	returns.extend([cumprod.values[i]/cumprod.values[i-1] for i in range(1,len(cumprod))])
 	return Series(returns,index=cumprod.index)
@@ -45,30 +47,35 @@ def sort_by_momentum(symbols, allDfs, dates, idx, lookback):
 
 #get all stock symbols by reading csv names from data folder
 symbols = []
-os.chdir("data/")
-for afile in glob.glob("*.csv"):
-	symbols.append(afile[:-4]) #slice out csv extension
-os.chdir("../") #reset dir
+symbols = ['IVV','EEM','EFA','LQD','IYR','SHY','IEF','TIP'] #fidelity
+#symbols = ['VTI','EWJ','RWX','IEF','TLT','IAU','DBC','VGK','VNQ','VWO']
 
 allDfs = {}
 #store all in memory (a dict of dfs). read from binary, if doesn't exist read from csv (and save binary)
 for symbol in symbols:
-	try:
-		print "reading "+symbol+" data from binary file..."
-		df = DataFrame.load("data/"+symbol+".df")
-	except IOError:
-		print "reading "+symbol+" data from CSV..."
-		df = DataFrame.from_csv("data/"+symbol+".csv")
-		df.save("data/"+symbol+".df")
+	df= DataReader(symbol,'yahoo',datetime(2005,1,1))
 	allDfs[symbol] = df
 
+#pdb.set_trace()
+
+#calculate rets
+for symbol in symbols:
+	price = allDfs[symbol]['Adj Close']
+	prev_price = price.shift(1)
+	ret = price/prev_price-1
+	ret = Series(ret,index=price.index)
+	df=DataFrame({'RET':ret})
+	allDfs[symbol]=df
+	#pdb.set_trace()
+
+
 #get a ts of number of etfs in existence
-generateTimeSeries = 0
+generateTimeSeries = 1
 if generateTimeSeries==1:
 	print "generating time series of ETF count..."
 
 	countTS = {}
-	for date in allDfs['SPY'].index:
+	for date in allDfs['IVV'].index:
 		count=0
 		for symbol in allDfs.keys():
 			try:
@@ -82,9 +89,9 @@ if generateTimeSeries==1:
 	countSeries = Series(countTS)
 
 #set start-end date
-startDate = allDfs['SPY'].index[0]
-endDate = allDfs['SPY'].index[-1]
-dates = allDfs['SPY'].index
+startDate = allDfs[symbols[0]].index[0]
+endDate = allDfs[symbols[0]].index[-1]
+dates = allDfs[symbols[0]].index
 dayCount = len(dates)
 
 
@@ -97,19 +104,19 @@ min_weight = 0 #no shorting
 total_weight = 1 #no leverage
 mvp_lookback = 60
 top = 5
-momentum_lookback = 120
+momentum_lookback = 80
 
 #for each day
 firstIdx = 0
 weights_dict = {}
 
-for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
+for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount-1):
 
 	#if dates[idx].month==5 and dates[idx].year==2003 and dates[idx].day > 28: #debug
 	#	pdb.set_trace()
 
 	#check if new month. rebalance monthly
-	if dates[idx]==dates[-1] or (dates[idx].month != dates[idx+1].month):
+	if (dates[idx].month != dates[idx+1].month):
 		if firstIdx==0: #find the idx of the previous month because firstIdx hasn't been set yet
 			curIdx = idx
 			while dates[curIdx].month == dates[curIdx-1].month:
@@ -206,7 +213,10 @@ for idx in range(max(momentum_lookback,mvp_lookback)+21,dayCount):
 			average_returns += cum_returns_dict[symbol]*weights[symbol]
 			
 		#these are cum prod returns (e.g. levels). transform back into returns
+		if len(average_returns)==0:
+			pdb.set_trace()
 		average_returns = cumprod_to_returns(average_returns)
+
 
 		#set the beginning of next month
 		firstIdx = idx+1
@@ -225,3 +235,5 @@ performance_stats = {}
 performance_stats['cagr'] = pow(pow(cumrets[-1],(1.0/float(len(cumrets)))),252)
 performance_stats['sharpe'] = (portfolio_rets['mommvp']-1).mean()/(portfolio_rets['mommvp']-1).std()*252.0/sqrt(252)
 performance_stats['maxdd']=1-min(cumrets/cumrets.cummax())
+
+performance_stats

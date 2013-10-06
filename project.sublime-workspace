@@ -1,0 +1,800 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"equiy",
+				"equity_symbol"
+			],
+			[
+				"bod",
+				"bond_symbol"
+			],
+			[
+				"cash",
+				"cash_cum_returns"
+			],
+			[
+				"cum_return",
+				"cum_returns_dict"
+			],
+			[
+				"bull",
+				"bull_market"
+			],
+			[
+				"small_ma",
+				"small_ma_values"
+			],
+			[
+				"long_ma",
+				"long_ma_values"
+			],
+			[
+				"eq",
+				"equity_symbol"
+			],
+			[
+				"perio",
+				"periodRetsDict"
+			],
+			[
+				"trad",
+				"tradable_symbols_2"
+			],
+			[
+				"momentu",
+				"momentum_dict"
+			],
+			[
+				"mom",
+				"momentum_lookback"
+			],
+			[
+				"weight",
+				"weight_symbols"
+			],
+			[
+				"set",
+				"set_trace"
+			],
+			[
+				"vola",
+				"volatility_lookback"
+			],
+			[
+				"scal",
+				"scale_factor_multiplier"
+			],
+			[
+				"scale_fa",
+				"scale_factors_sum"
+			],
+			[
+				"volat",
+				"volatility_dict"
+			],
+			[
+				"mome",
+				"momentum_dict"
+			],
+			[
+				"tradable",
+				"tradable_symbols"
+			],
+			[
+				"cumprod",
+				"cumprod_to_returns"
+			],
+			[
+				"port",
+				"portfolio_rets"
+			],
+			[
+				"average",
+				"average_returns"
+			],
+			[
+				"portfolio",
+				"portfolio_rets"
+			],
+			[
+				"cum",
+				"cum_returns_dict"
+			],
+			[
+				"trada",
+				"tradable_symbols"
+			],
+			[
+				"date",
+				"date"
+			],
+			[
+				"static",
+				"static_pages"
+			],
+			[
+				"dele",
+				"delete_bag_of_words"
+			],
+			[
+				"pop",
+				"populate_bag_of_words"
+			],
+			[
+				"just",
+				"just_scraped"
+			],
+			[
+				"scrap",
+				"scrape_helper"
+			],
+			[
+				"scra",
+				"scrape_helper"
+			],
+			[
+				"popul",
+				"populate_bag_of_words_helper"
+			],
+			[
+				"locatr",
+				"location_string"
+			],
+			[
+				"catego",
+				"category_scores"
+			],
+			[
+				"cate",
+				"category_scores"
+			],
+			[
+				"smallest",
+				"smallest_size"
+			],
+			[
+				"category",
+				"category"
+			],
+			[
+				"small",
+				"smallest_size"
+			],
+			[
+				"smalle",
+				"smallest_category"
+			],
+			[
+				"curr",
+				"current_size"
+			],
+			[
+				"smalles",
+				"smallest_size"
+			],
+			[
+				"test",
+				"test_words"
+			],
+			[
+				"most",
+				"most_likely_category"
+			],
+			[
+				"max",
+				"max_score"
+			],
+			[
+				"cat",
+				"category_scores"
+			],
+			[
+				"freq",
+				"freq_probabilities"
+			],
+			[
+				"pro",
+				"probability"
+			],
+			[
+				"proba",
+				"probability"
+			],
+			[
+				"total",
+				"total_words_given_cat"
+			],
+			[
+				"probabili",
+				"probability_map"
+			],
+			[
+				"trainin",
+				"training_deal"
+			],
+			[
+				"train",
+				"training_deal"
+			],
+			[
+				"stat",
+				"static_location"
+			],
+			[
+				"extern",
+				"external_id"
+			],
+			[
+				"exter",
+				"external_id"
+			],
+			[
+				"si",
+				"site"
+			],
+			[
+				"rolling",
+				"rolling_mean_volume"
+			],
+			[
+				"reminder",
+				"reminder_time"
+			],
+			[
+				"remind",
+				"reminder"
+			],
+			[
+				"update",
+				"update_attributes"
+			],
+			[
+				"description",
+				"description"
+			],
+			[
+				"Ad",
+				"ADD"
+			],
+			[
+				"validates",
+				"validates_length_of"
+			],
+			[
+				"submitt",
+				"submitter_email"
+			],
+			[
+				"creat",
+				"create_idea_string"
+			],
+			[
+				"submit",
+				"submitter_email"
+			],
+			[
+				"redi",
+				"redirect_to"
+			],
+			[
+				"pomodor",
+				"pomodoro_tags"
+			],
+			[
+				"pomo",
+				"pomodoro_tags"
+			],
+			[
+				"tag",
+				"tag_status"
+			],
+			[
+				"new",
+				"new_data_toGraph"
+			],
+			[
+				"updated",
+				"updated_at"
+			],
+			[
+				"raw",
+				"raw_pomodoros"
+			],
+			[
+				"data_array",
+				"data_array_toAdd"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"user",
+				"user"
+			],
+			[
+				"Pomodo",
+				"Pomodoros"
+			],
+			[
+				"grouped",
+				"grouped_pomodoros"
+			],
+			[
+				"updat",
+				"updated_at"
+			],
+			[
+				"typ",
+				"type_label"
+			],
+			[
+				"time",
+				"timeframe"
+			],
+			[
+				"pomodoros",
+				"pomodoros"
+			],
+			[
+				"do",
+				"do"
+			],
+			[
+				"unfinishe",
+				"unfinished_pomodoro"
+			],
+			[
+				"uf",
+				"unfinished_pomodoro"
+			],
+			[
+				"unfinis",
+				"unfinished_pomodoro"
+			],
+			[
+				"us",
+				"user_id"
+			],
+			[
+				"have_",
+				"have_link"
+			],
+			[
+				"sign",
+				"signin_path"
+			],
+			[
+				"password",
+				"password_confirmation"
+			],
+			[
+				"pass",
+				"password_confirmation"
+			],
+			[
+				"shoul",
+				"should_not"
+			],
+			[
+				"WOR",
+				"WORKING"
+			],
+			[
+				"WORK",
+				"WORK_READY"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"have",
+				"have_selector"
+			],
+			[
+				"submi",
+				"submit"
+			],
+			[
+				"gravat",
+				"gravatar_url"
+			],
+			[
+				"gravatar",
+				"gravatar_id"
+			],
+			[
+				"it",
+				"it	it \"should description\" do … end"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 348.0,
+		"selected_items":
+		[
+			[
+				"packag",
+				"Package Control: Install Package"
+			],
+			[
+				"package contro",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 251.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/laa_backtest_mf_gc.py",
+		"/home/troyshu/flask_projects/aaa/app.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/mommvp_backtest_yhoo.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/mommvp_backtest.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/broker_specific/mommvp_backtest_td.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/broker_specific/laa_backtest_van.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/broker_specific/laa_backtest_fid.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/broker_specific/mommvp_backtest_van.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/laa_backtest_van.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/momvol_backtest.py",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/add_contact.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/db.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/email.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/footer.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/form.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/header.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/index.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/info.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/login.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/marketing.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/paginate_begin.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/paginate_end.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/report.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/scripts.js",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/send.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/send_marketing.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/update.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/form/update_contact.php",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/splice_by_security.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/mvp_backtest.py",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page1.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page2.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page3.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page4.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page5.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page6.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page7.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page8.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/2week_page9.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page1.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page2.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page3.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page4.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page5.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page6.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page7.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page8.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/3week_page9.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page1.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page2.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page3.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page4.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page5.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page6.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page7.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page8.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/4week_page9.html",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/contact.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/faq.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/footer.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/header.php",
+		"/media/Windows7_OS/Users/Troy Shu/Documents/Business/Web Development/pattycproperty/site/programs/index.php",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/our_backtester_2.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/eqw_backtest.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/mom_backtest.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/todo",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/vol_backtest.py",
+		"/home/troyshu/Dropbox/Penn 2012-2013/spring/eas499/python/eqw_returns_old.xlsx",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/models/deal.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/deals/index.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/controllers/deals_controller.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/assets/stylesheets/deals.css.scss",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/helpers/sessions_helper.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/controllers/sessions_controller.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20130104203928_add_remember_token_to_users.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/controllers/application_controller.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20130104202957_add_password_digest_to_users.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/Gemfile",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20130104202755_add_index_to_users_email.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/log/development.log",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/static_pages/scrape.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/helpers/static_pages_helper.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/assets/stylesheets/static_pages.css.scss",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121223215448_add_just_scraped_column_to_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/location_url_maps/index.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/location_url_maps/_form.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/models/location_url_map.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121222023847_add_nameto_location_url_map_table.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/static_pages/delete_bag_of_words.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/static_pages/help.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121218214528_add_nb_diff_to_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121217162318_add_predictd_deal_type_to_tables.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/models/word_count.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121216221844_create_bag_of_words_table.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/layouts/_header.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/models/training_deal.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121213223550_add_index_to_training_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121213224027_add_index_to_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121213221724_create_training_deals_table.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121213001821_add_static_location_to_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/deals/index.html.erb.old",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121205160407_create_deals.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121210010221_rename_type_column.rb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/layouts/_shim.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/views/layouts/application.html.erb",
+		"/home/troyshu/rails_projects/scrapeallthedeals/app/assets/stylesheets/scaffolds.css.scss",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/development.sqlite3",
+		"/home/troyshu/rails_projects/scrapeallthedeals/db/migrate/20121205160026_create_deals.rb",
+		"/home/troyshu/quant_finance/open_day_range/openDayRangeStats.py",
+		"/home/troyshu/rails_projects/habitxter/db/migrate/20121122123319_add_reminder_time_to_habit.rb",
+		"/home/troyshu/rails_projects/habitxter/db/migrate/20121122130413_add_phone_number_to_user.rb",
+		"/home/troyshu/rails_projects/habitxter/app/views/habits/show.html.erb",
+		"/home/troyshu/rails_projects/habitxter/app/models/habit.rb",
+		"/home/troyshu/rails_projects/habitxter/app/views/reminders/_form.html.erb",
+		"/home/troyshu/rails_projects/habitxter/app/models/action.rb",
+		"/home/troyshu/rails_projects/habitxter/app/helpers/reminders_helper.rb",
+		"/home/troyshu/rails_projects/habitxter/scheduled_tasks/scan_all_reminders_task.rb",
+		"/home/troyshu/rails_projects/habitxter/db/migrate/20121122202654_add_job_id_to_reminders.rb",
+		"/home/troyshu/rails_projects/habitxter/app/controllers/reminders_controller.rb",
+		"/home/troyshu/rails_projects/habitxter/app/models/reminder.rb",
+		"/home/troyshu/rails_projects/habitxter/config/initializers/scheduler_init.rb",
+		"/home/troyshu/rails_projects/habitxter/db/migrate/20121122193036_add_enable_to_habits.rb",
+		"/home/troyshu/quant_finance/open_day_range/5minOHLC.py",
+		"/home/troyshu/quant finance/open day range/5minOHLC.py",
+		"/home/troyshu/rails_projects/habitxter/app/views/layouts/application.html.erb"
+	],
+	"find":
+	{
+		"height": 88.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pdb.set",
+			"2005",
+			"VTI",
+			"not downloaded",
+			"todo",
+			"        \n",
+			"self",
+			"year",
+			"update",
+			"qp",
+			"ivv",
+			"rankbymomentum",
+			"backtest_task_aux()",
+			"total_w",
+			"cumprod_to_returns",
+			"核心课程:",
+			"核心课程: 包括申请费，学费",
+			"所列费用包含美国境内",
+			"(申请费",
+			"所列费用包含美国境内",
+			"$_POST['camp']",
+			"\\$_POST['camp']",
+			"$_POST['camp']",
+			"\\$camp",
+			"$camp",
+			"camp",
+			"$camp",
+			"下午",
+			"total_weght",
+			"volatility_loo",
+			"pdb.set",
+			"saving scraped",
+			"calculate_nb_probabilities",
+			"request",
+			"lightview",
+			"http://projects.nickstakenburg.com/lightview",
+			"lightview",
+			"watermark",
+			"TrainingDeal id",
+			"TrainingDeal id 18",
+			"TrainingDeal",
+			"TrainingDeal id",
+			"TrainingDeal",
+			"trainingdeal",
+			"我们在中国的部分合作单位有胡润百富 , 新东方国际游学，北京市人才服务中心，亨瑞国际咨询集",
+			"it is now",
+			"scanning",
+			"scanning\\",
+			"scanning",
+			"it is now",
+			"parsed",
+			"rufus",
+			"scheduled",
+			"creating new habit for current user",
+			"creating new habit for",
+			"current user",
+			" ",
+			"flash",
+			" &reg;",
+			"Pomodoro Technique",
+			"Pomodoro",
+			"Pomodoros",
+			",",
+			", ",
+			"\"",
+			"where",
+			"user_l",
+			"in getpr",
+			"in getpremium",
+			"openTimerPopup",
+			"openTimer",
+			"20px",
+			"tags",
+			"console.",
+			"pomodoros in ",
+			"tags for tag",
+			"color",
+			"height",
+			"strong",
+			"Pomos",
+			"form",
+			"user path",
+			"css",
+			"styl",
+			"css",
+			"}",
+			">",
+			"pomodoros s",
+			"moving onto",
+			"in get_data",
+			"show data",
+			"STORE LOCATION",
+			"ssl",
+			"rails",
+			"rail",
+			"rails",
+			"					<",
+			"user_path",
+			"visit",
+			"config.acti",
+			"signed_in",
+			"  \n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"&nbsp;",
+			"&reg;",
+			"Pomodoro Technique &reg;",
+			"pomodoros",
+			"",
+			",",
+			", \\r",
+			"",
+			"POMOS"
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.haskell_sublime_load":
+	{
+		"height": 118.0
+	},
+	"output.tests":
+	{
+		"height": 184.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 194.0,
+	"status_bar_visible": true
+}

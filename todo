@@ -15,3 +15,37 @@
  - 1/25/2013: finished mom, vol, and momvol algs. what's next?
  	- small batching says: make it a webapp right now
  		- django? probably a better idea than ror
+
+
+
+ - 9/24/2013: want to make it a better alg
+ 	- idea: use golden cross, switch over to equities/just investing in stock market 
+ 		- fewer transaction costs, but potentially worse performance due to market timing
+ 	- idea: use golden cross, but just increase equities exposure (or have a constraint that portfolio must include equities)
+ 		- mitigates market timing risk
+ 		- i can probably rapidly prototype this in quantopian...
+ 		- then i have to think about what happens at golden cross: do we still wait until next trade date to implement increase in exposure? perhaps. 
+
+
+ - 10/6/2013: automating the algo
+	- todo
+		- algo delay: pretty much done, done through sleep()
+		- submitting the correct orders
+			- loop through symbols (make sure you can submit multiple symbols)
+			- get account value, multiply by weight, divide by market price (GET MARKET PRICE) round down to nearest integer
+		- SELLING POSITIONS
+			- get open positions
+			- loop through them
+			- sell
+
+	- ORGANIZE FILES
+		- git
+ 	- test: if it submits orders: leave laptop home one day, see if it submits orders through our account (paper trading account)
+
+
+
+
+from Trader import Trader
+trader = Trader('DU15068')
+weights = {'AAPL':0.1,'TSLA':0.1}
+trader.enterPositions(weights,execution_sleep=False)
